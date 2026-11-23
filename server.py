@@ -38,8 +38,8 @@ IMG_CACHE_MAX = 600
 CATEGORIES = {
     "크로셰": ["crochet gift idea", "crochet tissue box cover", "easy crochet project", "crochet with me"],
     "DIY 선물": ["DIY housewarming gift", "handmade gift idea", "cheap DIY gift"],
-    "호주 물가": ["Sydney cost of living", "Woolworths vs Coles", "cheap meals Australia", "grocery haul Australia"],
-    "Kmart/Op shop": ["Kmart haul", "op shop finds Sydney", "thrift haul Australia", "Kmart hack"],
+    "호주 물가": ["Sydney cost of living", "grocery prices Australia", "cheap meals Australia", "grocery haul Australia", "how much I spend in Sydney"],
+    "Kmart/Op shop": ["Kmart haul", "Kmart finds", "Kmart Australia", "op shop finds", "thrift haul Australia", "Kmart hack"],
     "시드니 일상": ["Sydney vlog", "day in my life Sydney", "living in Sydney"],
     "한인 호주": ["호주 물가", "시드니 브이로그", "호주 워홀 생활비"],
 }
