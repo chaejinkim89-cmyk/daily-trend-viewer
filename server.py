@@ -36,18 +36,15 @@ IMG_CACHE_MAX = 600
 # ---------------------------------------------------------------- 유튜브
 # 카테고리 → 유튜브 검색어 매핑
 CATEGORIES = {
-    "먹방": "먹방",
-    "뷰티/패션": "뷰티 메이크업 패션",
-    "브이로그": "브이로그",
-    "예능/코미디": "예능 웃긴 영상",
-    "영화/드라마": "영화 드라마 리뷰",
-    "테크/IT": "테크 리뷰",
-    "지식/교육": "지식 교양",
-    "여행": "여행",
-    "동물": "강아지 고양이",
+    "크로셰": ["crochet gift idea", "crochet tissue box cover", "easy crochet project", "crochet with me"],
+    "DIY 선물": ["DIY housewarming gift", "handmade gift idea", "cheap DIY gift"],
+    "호주 물가": ["Sydney cost of living", "Woolworths vs Coles", "cheap meals Australia", "grocery haul Australia"],
+    "Kmart/Op shop": ["Kmart haul", "op shop finds Sydney", "thrift haul Australia", "Kmart hack"],
+    "시드니 일상": ["Sydney vlog", "day in my life Sydney", "living in Sydney"],
+    "한인 호주": ["호주 물가", "시드니 브이로그", "호주 워홀 생활비"],
 }
 # "전체" 탭은 아래 카테고리들을 합쳐 조회수순으로 재정렬
-ALL_MERGE = ["먹방", "브이로그", "예능/코미디", "뷰티/패션", "영화/드라마", "여행"]
+ALL_MERGE = ["크로셰", "DIY 선물", "호주 물가", "Kmart/Op shop", "시드니 일상"]
 
 # 검색 필터 protobuf: 업로드 날짜 (2=오늘, 3=이번 주, 4=이번 달)
 PERIOD_CODE = {"day": 2, "week": 3, "month": 4}
@@ -55,17 +52,16 @@ PERIOD_CODE = {"day": 2, "week": 3, "month": 4}
 # 검색 결과에 섞여 오는 추천 섹션 영상이 기간 필터를 우회하는 경우를 걸러내기 위한
 # 기간별 제외 문구 ("N일 전" 형태의 게시일 텍스트 기준)
 PERIOD_EXCLUDE = {
-    "day": ("일 전", "주 전", "개월 전", "년 전"),
-    "week": ("주 전", "개월 전", "년 전"),
-    "month": ("개월 전", "년 전"),
+    "day": ("일 전", "주 전", "개월 전", "년 전", "day ago", "days ago", "week", "month", "year"),
+    "week": ("주 전", "개월 전", "년 전", "weeks ago", "month", "year"),
+    "month": ("개월 전", "년 전", "months ago", "year"),
 }
 
 # ---------------------------------------------------------------- 인스타그램 릴스
 IG_APP_ID = "936619743392459"  # instagram.com 웹이 쓰는 공개 앱 ID
 ACCOUNTS_FILE = os.path.join(BASE_DIR, "reels_accounts.json")
 DEFAULT_IG_ACCOUNTS = [
-    "openai", "runwayapp", "pika_labs", "lumalabsai", "midjourney",
-    "klingai_official", "heygen_official", "higgsfield.ai", "googledeepmind",
+    "hojusekki",
 ]
 
 # ---------------------------------------------------------------- X (트위터)
@@ -86,11 +82,10 @@ IG_APP_ID_THREADS = "238260118697367"  # threads.com 웹이 쓰는 공개 앱 ID
 # tikwm 무료 공개 API가 서명(X-Bogus/msToken)을 대신 처리해 조회수·좋아요·댓글까지 반환합니다.
 TIKTOK_ACCOUNTS_FILE = os.path.join(BASE_DIR, "tiktok_accounts.json")
 DEFAULT_TIKTOK_ACCOUNTS = [
-    "openai", "runwayapp", "krea.ai", "elevenlabs", "sora",
-    "zachking", "khaby.lame", "google",
+    "hojusekki",
 ]
 TIKWM_BASE = "https://www.tikwm.com/api"
-TIKTOK_REGION = "KR"
+TIKTOK_REGION = "AU"
 
 # ---------------------------------------------------------------- AI 영상 탭
 AI_YT_QUERIES = ["AI 영상 제작", "AI 영상 생성", "sora ai video", "runway kling veo"]
@@ -197,7 +192,7 @@ def yt_search(query: str, period: str, shorts: bool):
         "context": {"client": {
             "clientName": "WEB",
             "clientVersion": "2.20250624.01.00",
-            "hl": "ko", "gl": "KR",
+            "hl": "en", "gl": "AU",
         }},
         "query": query,
         "params": build_search_params(period, shorts),
@@ -219,7 +214,7 @@ def yt_search(query: str, period: str, shorts: bool):
 def yt_like_count(video_id: str):
     """youtubei/v1/next로 영상 1개의 좋아요 수를 가져옵니다(검색 API엔 없음)."""
     payload = {"context": {"client": {
-        "clientName": "WEB", "clientVersion": "2.20250624.01.00", "hl": "ko", "gl": "KR"}},
+        "clientName": "WEB", "clientVersion": "2.20250624.01.00", "hl": "en", "gl": "AU"}},
         "videoId": video_id}
     try:
         _, body = http_get("https://www.youtube.com/youtubei/v1/next", payload=payload, timeout=10)
@@ -255,16 +250,20 @@ def merge_yt_searches(queries, period, shorts):
     return merged
 
 
+def _as_list(q):
+    return q if isinstance(q, list) else [q]
+
+
 def get_videos(category: str, period: str, shorts: bool, force: bool, enrich: bool = False, query: str = ""):
     def fetch():
         if query:
             queries = [query]
         elif category == "전체":
-            queries = [CATEGORIES[c] for c in ALL_MERGE]
+            queries = [q for c in ALL_MERGE for q in _as_list(CATEGORIES[c])]
         elif category == "AI":
             queries = AI_YT_QUERIES
         else:
-            queries = [CATEGORIES.get(category, category)]
+            queries = _as_list(CATEGORIES.get(category, category))
         vids = merge_yt_searches(queries, period, shorts)
         if enrich:
             enrich_likes(vids)
