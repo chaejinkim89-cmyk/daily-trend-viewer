@@ -37,7 +37,7 @@ IMG_CACHE_MAX = 600
 # 카테고리 → 유튜브 검색어 매핑
 CATEGORIES = {
     "요리": ["cheap meals recipe Australia", "budget dinner recipe", "easy weeknight dinner", "자취 요리", "간단 집밥 레시피", "호주 집밥"],
-    "캠핑": ["camping Australia", "car camping", "camp cooking", "캠핑 브이로그", "차박", "호주 캠핑"],
+    "캠핑": ["camping vlog Australia", "car camping vlog", "camping recipe", "캠핑 브이로그", "차박 브이로그", "호주 캠핑"],
     "크로셰": ["crochet gift idea", "crochet tissue box cover", "easy crochet project", "crochet with me", "코바늘 뜨기", "코바늘 소품"],
     "DIY 선물": ["DIY housewarming gift", "handmade gift idea", "cheap DIY gift", "DIY 선물 만들기", "집들이 선물 추천"],
     "호주 물가": ["Sydney cost of living", "grocery prices Australia", "grocery haul Australia", "how much I spend in Sydney", "호주 물가", "호주 장보기"],
@@ -47,7 +47,7 @@ CATEGORIES = {
     "Resell": ["reselling on ebay", "etsy shop tips", "thrift to resell", "ebay reseller", "리셀 부업", "이베이 판매"],
     "시드니 일상": ["Sydney vlog", "day in my life Sydney", "living in Sydney", "시드니 일상"],
     "한인 호주": ["호주 물가", "시드니 브이로그", "호주 워홀 생활비", "호주 이민 생활"],
-    "30대 후반 여성": ["late 30s woman", "women in their 30s", "30s lifestyle vlog", "30대 여자 브이로그", "30대 후반 일상", "30대 퇴사 일상"],
+    "30대 후반 여성": ["day in my life late 30s", "life in my 30s vlog", "single woman in her 30s vlog", "30대 여자 브이로그", "30대 후반 일상", "30대 퇴사 일상"],
 }
 # "전체" 탭은 아래 카테고리들을 합쳐 조회수순으로 재정렬
 ALL_MERGE = ["요리", "크로셰", "DIY 선물", "호주 물가", "Vintage", "Thrifting", "시드니 일상"]
