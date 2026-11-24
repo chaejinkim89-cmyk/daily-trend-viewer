@@ -2,7 +2,7 @@
 """GitHub Pages용 정적 스냅샷 빌더.
 server.py의 수집 함수를 재사용해 모든 탭 데이터를 JSON으로 저장하고,
 핫링크가 막힌 썸네일(인스타/틱톡/트위터 CDN)은 내려받아 로컬 파일로 바꿉니다.
-GitHub Actions가 1시간마다 실행해 결과를 GitHub Pages로 배포합니다.
+GitHub Actions가 매일 아침 실행해 결과를 GitHub Pages로 배포합니다.
 사용: python3 collect.py [출력폴더=_site]
 """
 import hashlib
@@ -25,7 +25,7 @@ PAGES_BASE = os.environ.get("PAGES_BASE", "https://lmorejh.github.io/daily-trend
 # static_shim.js의 SLUG와 반드시 일치해야 합니다 (파일명에 쓸 영문 슬러그)
 CATEGORY_SLUGS = {
     "전체": "all", "AI": "ai", "크로셰": "crochet", "DIY 선물": "diygift",
-    "호주 물가": "aucost", "Kmart/Op shop": "kmart", "시드니 일상": "sydney", "한인 호주": "krau",
+    "호주 물가": "aucost", "Kmart/Op shop": "kmart", "시드니 일상": "sydney", "한인 호주": "krau", "요리": "cooking",
 }
 
 

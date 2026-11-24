@@ -42,9 +42,10 @@ CATEGORIES = {
     "Kmart/Op shop": ["Kmart haul", "Kmart finds", "Kmart Australia", "op shop finds", "thrift haul Australia", "Kmart hack"],
     "시드니 일상": ["Sydney vlog", "day in my life Sydney", "living in Sydney"],
     "한인 호주": ["호주 물가", "시드니 브이로그", "호주 워홀 생활비"],
+    "요리": ["cheap meals recipe", "budget dinner recipe", "easy weeknight dinner", "Aussie home cooking", "자취 요리", "호주 집밥"],
 }
 # "전체" 탭은 아래 카테고리들을 합쳐 조회수순으로 재정렬
-ALL_MERGE = ["크로셰", "DIY 선물", "호주 물가", "Kmart/Op shop", "시드니 일상"]
+ALL_MERGE = ["크로셰", "DIY 선물", "호주 물가", "Kmart/Op shop", "시드니 일상", "요리"]
 
 # 검색 필터 protobuf: 업로드 날짜 (2=오늘, 3=이번 주, 4=이번 달)
 PERIOD_CODE = {"day": 2, "week": 3, "month": 4}

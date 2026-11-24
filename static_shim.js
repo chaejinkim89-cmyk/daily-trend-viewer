@@ -5,7 +5,7 @@
   // collect.py의 CATEGORY_SLUGS와 반드시 일치해야 합니다
   const SLUG = {
     "전체": "all", "AI": "ai", "크로셰": "crochet", "DIY 선물": "diygift",
-    "호주 물가": "aucost", "Kmart/Op shop": "kmart", "시드니 일상": "sydney", "한인 호주": "krau",
+    "호주 물가": "aucost", "Kmart/Op shop": "kmart", "시드니 일상": "sydney", "한인 호주": "krau", "요리": "cooking",
   };
   const jsonResp = obj => Promise.resolve(
     new Response(JSON.stringify(obj), { headers: { "Content-Type": "application/json" } }));
@@ -62,7 +62,7 @@
       "#updated{margin-left:auto}";
     document.head.appendChild(style);
     const badge = document.createElement("div");
-    badge.textContent = "⏱ 1시간마다 자동 수집되는 스냅샷입니다";
+    badge.textContent = "⏱ 매일 아침 자동 수집되는 스냅샷입니다";
     badge.style.cssText = "color:var(--muted);font-size:12px";
     document.getElementById("updated").after(badge);
   });
