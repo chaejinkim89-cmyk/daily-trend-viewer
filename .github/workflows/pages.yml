@@ -28,7 +28,7 @@ jobs:
       - name: 데이터 수집 및 정적 사이트 생성
         run: python3 collect.py _site
         env:
-          PAGES_BASE: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/
+          PAGES_BASE: https://chaejinkim89-cmyk.github.io/daily-trend-viewer/
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
